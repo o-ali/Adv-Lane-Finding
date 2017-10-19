@@ -1,3 +1,19 @@
+# Advanced Lane Detection
+This project performs advanced lane detection methods and outputs the results from a video identifying the lanes and calculating curvature.
+
+It starts with a camera calibration using 9 by 6 chess board(see output_images/calibration_lines folder) images to create the matrix and distortion coefficients. The camera calibration will help increase the accuracy of the detection be eliminating distortions caused by the camera during filming.
+Undistorted images are then warped into a birds eye view of a small section of the road ahead(variables chosen after some testing). From here the image will pass through various functions to process the rest of the required information.
+
+First we pass the image through a color filter and perform the sobel operator to get the binary image with the lane lines(yellow and white) detected.
+
+Next, to identify where the lanes actually are, we pass the binary image through either sliding window function or "predict_lanes" function. 
+The sliding window performs a search by sliding a box over the image to identify the peaks and clusters of detected lanes from a histogram of the image and creates a set of variables to carry the cluster information for both left and right lanes.
+The "predict_lanes" will be used to speed up the process by using information from the sliding window to draw out the lanes.
+
+The output cluster information is then used to calculate the curvature and determine the distance the car is away from the center of the lane(negative being to the left, positive to the right).
+
+The information is then compiled into one image and the lane detected + the curvature and distance information is draw onto the final result and compiled into a video out(see output_videos folder)
+
 
 # Imports and calibration file
 
